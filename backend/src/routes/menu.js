@@ -38,9 +38,16 @@ router.get('/items', async (req, res, next) => {
         *,
         category:categories(*)
       `)
-      .eq('is_available', true);
+      .order('created_at', { ascending: false });
 
     // Apply filters
+    if (req.path.includes('/admin') || req.headers.authorization) {
+      // Admin view - show all items
+    } else {
+      // Public view - only available items
+      query = query.eq('is_available', true);
+    }
+    
     if (category) query = query.eq('category_id', category);
     if (spice_level) query = query.eq('spice_level', parseInt(spice_level));
     if (is_vegetarian === 'true') query = query.eq('is_vegetarian', true);
@@ -51,17 +58,12 @@ router.get('/items', async (req, res, next) => {
     const offset = (parseInt(page) - 1) * parseInt(limit);
     query = query.range(offset, offset + parseInt(limit) - 1);
 
-    const { data: items, error, count } = await query;
+    const { data: items, error } = await query;
     if (error) throw error;
 
     res.json({
       success: true,
       data: items,
-      pagination: {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        total: count
-      }
     });
   } catch (error) {
     next(error);

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { User, Mail, Phone, Edit3, Save } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -175,12 +176,21 @@ const ProfilePage: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-neutral-600">Total Orders</span>
-                  <span className="font-medium">{orders.length}</span>
+                  <span className="font-medium">0</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-neutral-600">Account Type</span>
                   <span className="capitalize font-medium">{user?.role}</span>
                 </div>
+              </div>
+              
+              <div className="mt-6 pt-4 border-t border-neutral-200">
+                <Link
+                  to="/orders"
+                  className="w-full btn-outline text-center block"
+                >
+                  View Order History
+                </Link>
               </div>
             </motion.div>
           </div>

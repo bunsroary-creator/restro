@@ -98,20 +98,19 @@ router.get('/sales-trends', authenticateToken, authorize('manager', 'admin'), as
 // Popular items
 router.get('/popular-items', authenticateToken, authorize('manager', 'admin'), async (req, res, next) => {
   try {
-    const { data: popularItems, error } = await supabase
+    const { data: orderItems, error } = await supabase
       .from('order_items')
       .select(`
         menu_item_id,
         quantity,
         menu_item:menu_items(name, price)
-      `)
-      .limit(10);
+      `);
 
     if (error) throw error;
 
     // Aggregate quantities by menu item
     const itemStats = {};
-    popularItems.forEach(item => {
+    orderItems.forEach(item => {
       const itemId = item.menu_item_id;
       if (!itemStats[itemId]) {
         itemStats[itemId] = {
@@ -125,7 +124,8 @@ router.get('/popular-items', authenticateToken, authorize('manager', 'admin'), a
 
     const sortedItems = Object.entries(itemStats)
       .map(([id, stats]) => ({ id, ...stats }))
-      .sort((a, b) => b.totalOrdered - a.totalOrdered);
+      .sort((a, b) => b.totalOrdered - a.totalOrdered)
+      .slice(0, 10);
 
     res.json({
       success: true,
