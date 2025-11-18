@@ -1,0 +1,51 @@
+<% layout('layout') -%>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="bi bi-mountain fs-3"></i>
+                    </div>
+                    <h2 class="mt-3 mb-1">Admin Login</h2>
+                    <p class="text-muted">Himalayan Kitchen Management</p>
+                </div>
+
+                <form action="/auth/login" method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope"></i>
+                            </span>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <i class="bi bi-box-arrow-in-right"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="alert alert-info">
+                    <small>
+                        <strong>Demo Credentials:</strong><br>
+                        Admin: admin@himalayankitchen.de / admin123<br>
+                        Manager: manager@himalayankitchen.de / manager123
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
