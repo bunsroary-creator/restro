@@ -1,70 +1,92 @@
 <% layout('layout') -%>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-5 animate-fade-in">
     <div>
-        <h1 class="h3 mb-0">Dashboard</h1>
-        <p class="text-muted">Welcome back, <%= user.full_name %>!</p>
+        <h1 class="h2 mb-2 text-gradient">
+            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        </h1>
+        <p class="text-muted fs-5">Welcome back, <strong><%= user.full_name %></strong>! Here's what's happening today.</p>
     </div>
-    <div class="text-muted">
-        <i class="bi bi-calendar3"></i>
+    <div class="text-muted d-flex align-items-center">
+        <i class="bi bi-calendar3 me-2 fs-5"></i>
         <%= moment().format('dddd, MMMM Do YYYY') %>
     </div>
 </div>
 
 <% if (stats) { %>
 <!-- Stats Cards -->
-<div class="row mb-4">
-    <div class="col-md-3 mb-3">
-        <div class="card bg-primary text-white">
+<div class="row mb-5 animate-slide-in">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white card-hover">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title mb-0">Today's Orders</h6>
-                        <h2 class="mb-0"><%= stats.todayStats.orders %></h2>
+                        <h6 class="card-title mb-2 opacity-75">Today's Orders</h6>
+                        <h2 class="mb-0 fw-bold"><%= stats.todayStats.orders %></h2>
+                        <small class="opacity-75">
+                            <i class="bi bi-arrow-up me-1"></i>+12% from yesterday
+                        </small>
                     </div>
-                    <i class="bi bi-bag fs-1 opacity-75"></i>
+                    <div class="text-end">
+                        <i class="bi bi-bag fs-1 opacity-50"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-3">
-        <div class="card bg-success text-white">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white card-hover">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title mb-0">Today's Revenue</h6>
-                        <h2 class="mb-0">€<%= stats.todayStats.revenue.toFixed(2) %></h2>
+                        <h6 class="card-title mb-2 opacity-75">Today's Revenue</h6>
+                        <h2 class="mb-0 fw-bold">€<%= stats.todayStats.revenue.toFixed(2) %></h2>
+                        <small class="opacity-75">
+                            <i class="bi bi-arrow-up me-1"></i>+8% from yesterday
+                        </small>
                     </div>
-                    <i class="bi bi-currency-euro fs-1 opacity-75"></i>
+                    <div class="text-end">
+                        <i class="bi bi-currency-euro fs-1 opacity-50"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-3">
-        <div class="card bg-warning text-white">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-warning text-white card-hover">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title mb-0">Pending Orders</h6>
-                        <h2 class="mb-0"><%= stats.todayStats.pendingOrders %></h2>
+                        <h6 class="card-title mb-2 opacity-75">Pending Orders</h6>
+                        <h2 class="mb-0 fw-bold"><%= stats.todayStats.pendingOrders %></h2>
+                        <small class="opacity-75">
+                            <i class="bi bi-clock me-1"></i>Needs attention
+                        </small>
                     </div>
-                    <i class="bi bi-clock fs-1 opacity-75"></i>
+                    <div class="text-end">
+                        <i class="bi bi-clock fs-1 opacity-50"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-3">
-        <div class="card bg-info text-white">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white card-hover">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title mb-0">Total Customers</h6>
-                        <h2 class="mb-0"><%= stats.totalCustomers %></h2>
+                        <h6 class="card-title mb-2 opacity-75">Total Customers</h6>
+                        <h2 class="mb-0 fw-bold"><%= stats.totalCustomers %></h2>
+                        <small class="opacity-75">
+                            <i class="bi bi-people me-1"></i>Registered users
+                        </small>
                     </div>
-                    <i class="bi bi-people fs-1 opacity-75"></i>
+                    <div class="text-end">
+                        <i class="bi bi-people fs-1 opacity-50"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,47 +94,50 @@
 </div>
 
 <!-- Order Status Overview -->
-<div class="row mb-4">
+<div class="row mb-5">
     <div class="col-12">
-        <div class="card">
+        <div class="card card-hover animate-fade-in">
             <div class="card-header">
-                <h5 class="card-title mb-0">Order Status Overview</h5>
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-pie-chart me-2"></i>Order Status Overview
+                </h5>
+                <small class="text-muted">Real-time order distribution</small>
             </div>
             <div class="card-body">
                 <div class="row text-center">
                     <div class="col">
-                        <div class="border rounded p-3">
-                            <i class="bi bi-clock text-warning fs-3"></i>
-                            <h4 class="mt-2 mb-0"><%= stats.ordersByStatus.pending %></h4>
-                            <small class="text-muted">Pending</small>
+                        <div class="border rounded p-4 card-hover bg-light">
+                            <i class="bi bi-clock text-warning fs-2 mb-2"></i>
+                            <h3 class="mt-2 mb-1 fw-bold"><%= stats.ordersByStatus.pending %></h3>
+                            <small class="text-muted fw-semibold">Pending</small>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="border rounded p-3">
-                            <i class="bi bi-check-circle text-primary fs-3"></i>
-                            <h4 class="mt-2 mb-0"><%= stats.ordersByStatus.confirmed %></h4>
-                            <small class="text-muted">Confirmed</small>
+                        <div class="border rounded p-4 card-hover bg-light">
+                            <i class="bi bi-check-circle text-primary fs-2 mb-2"></i>
+                            <h3 class="mt-2 mb-1 fw-bold"><%= stats.ordersByStatus.confirmed %></h3>
+                            <small class="text-muted fw-semibold">Confirmed</small>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="border rounded p-3">
-                            <i class="bi bi-gear text-info fs-3"></i>
-                            <h4 class="mt-2 mb-0"><%= stats.ordersByStatus.preparing %></h4>
-                            <small class="text-muted">Preparing</small>
+                        <div class="border rounded p-4 card-hover bg-light">
+                            <i class="bi bi-gear text-info fs-2 mb-2"></i>
+                            <h3 class="mt-2 mb-1 fw-bold"><%= stats.ordersByStatus.preparing %></h3>
+                            <small class="text-muted fw-semibold">Preparing</small>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="border rounded p-3">
-                            <i class="bi bi-truck text-success fs-3"></i>
-                            <h4 class="mt-2 mb-0"><%= stats.ordersByStatus.ready %></h4>
-                            <small class="text-muted">Ready</small>
+                        <div class="border rounded p-4 card-hover bg-light">
+                            <i class="bi bi-truck text-success fs-2 mb-2"></i>
+                            <h3 class="mt-2 mb-1 fw-bold"><%= stats.ordersByStatus.ready %></h3>
+                            <small class="text-muted fw-semibold">Ready</small>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="border rounded p-3">
-                            <i class="bi bi-check2-all text-success fs-3"></i>
-                            <h4 class="mt-2 mb-0"><%= stats.ordersByStatus.completed %></h4>
-                            <small class="text-muted">Completed</small>
+                        <div class="border rounded p-4 card-hover bg-light">
+                            <i class="bi bi-check2-all text-success fs-2 mb-2"></i>
+                            <h3 class="mt-2 mb-1 fw-bold"><%= stats.ordersByStatus.completed %></h3>
+                            <small class="text-muted fw-semibold">Completed</small>
                         </div>
                     </div>
                 </div>
@@ -125,10 +150,17 @@
 <!-- Recent Orders -->
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card card-hover animate-slide-in">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Recent Orders</h5>
-                <a href="/orders" class="btn btn-sm btn-outline-primary">View All</a>
+                <div>
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-clock-history me-2"></i>Recent Orders
+                    </h5>
+                    <small class="text-muted">Latest customer orders</small>
+                </div>
+                <a href="/orders" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-arrow-right me-1"></i>View All Orders
+                </a>
             </div>
             <div class="card-body">
                 <% if (recentOrders && recentOrders.length > 0) { %>
@@ -147,14 +179,23 @@
                         <tbody>
                             <% recentOrders.forEach(order => { %>
                             <tr>
-                                <td><strong>#<%= order.id.slice(-6) %></strong></td>
                                 <td>
-                                    <%= order.user?.full_name || 'N/A' %><br>
-                                    <small class="text-muted"><%= order.phone %></small>
+                                    <strong class="text-primary">#<%= order.id.slice(-6) %></strong>
                                 </td>
                                 <td>
-                                    <span class="badge bg-<%= order.order_type === 'delivery' ? 'info' : 'secondary' %>">
-                                        <%= order.order_type %>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+                                            <i class="bi bi-person fs-6"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold"><%= order.user?.full_name || 'N/A' %></div>
+                                            <small class="text-muted"><%= order.phone %></small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-<%= order.order_type === 'delivery' ? 'info' : 'secondary' %> status-indicator">
+                                        <%= order.order_type.charAt(0).toUpperCase() + order.order_type.slice(1) %>
                                     </span>
                                 </td>
                                 <td>
@@ -164,13 +205,18 @@
                                         order.status === 'preparing' ? 'info' :
                                         order.status === 'ready' ? 'success' :
                                         order.status === 'completed' ? 'success' : 'danger'
-                                    %>">
-                                        <%= order.status %>
+                                    %> status-indicator status-<%= order.status %>">
+                                        <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
                                     </span>
                                 </td>
-                                <td><strong>€<%= order.total_amount.toFixed(2) %></strong></td>
                                 <td>
-                                    <small><%= moment(order.created_at).fromNow() %></small>
+                                    <strong class="text-success fs-6">€<%= order.total_amount.toFixed(2) %></strong>
+                                </td>
+                                <td>
+                                    <div class="text-muted">
+                                        <small class="d-block"><%= moment(order.created_at).format('HH:mm') %></small>
+                                        <small><%= moment(order.created_at).fromNow() %></small>
+                                    </div>
                                 </td>
                             </tr>
                             <% }) %>
@@ -178,9 +224,10 @@
                     </table>
                 </div>
                 <% } else { %>
-                <div class="text-center py-4">
-                    <i class="bi bi-inbox text-muted" style="font-size: 3rem;"></i>
-                    <p class="text-muted mt-2">No recent orders</p>
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox text-muted mb-3" style="font-size: 4rem;"></i>
+                    <h5 class="text-muted">No recent orders</h5>
+                    <p class="text-muted">Orders will appear here when customers place them.</p>
                 </div>
                 <% } %>
             </div>
